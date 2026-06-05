@@ -2,6 +2,7 @@ import 'dotenv/config';
 import express from 'express'
 import cors from 'cors'
 import { pool } from './config/database.js'
+import budgetsRoutes from './routes/budgets.routes.js'
 
 const PORT = process.env.PORT || 3004
 
@@ -9,6 +10,8 @@ const app = express()
 
 app.use(express.json())
 app.use(cors())
+
+app.use('/budgets', budgetsRoutes)
 
 app.get('/', (req, res) => {
     res.send('API OrçaFácil Lite rodando')
