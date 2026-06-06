@@ -70,3 +70,58 @@ export async function createBudgets(req, res) {
 
     return res.status(201).json(result.rows[0])
 }
+
+export async function updateBadgets(req, res) {
+    const { id } = req.params
+
+    const {
+        client_name,
+        service_name,
+        description,
+        price,
+        status,
+        deadline,
+        notes
+    } = req.body
+
+    if (Object.keys(req.body).length === 0) {
+        return res.status(400).json({
+            message: 'Preencha pelo menos um campo para atualizar'
+        })
+    }
+
+    const result = await pool.query(
+        `
+        UPDATE budgets
+        SET
+            client_name = COALESCE($1, client_name),
+            service_name = COALESCE($2, service_name),
+            description = COALESCE($3, description),
+            price = COALESCE($4::numeric, price),
+            status = COALESCE($5, status),
+            deadline = COALESCE($6::date, deadline),
+            notes = COALESCE($7, notes),
+            updated_at = CURRENT_TIMESTAMP
+        WHERE id = $8
+        RETURNING *
+        `,
+        [
+            client_name,
+            service_name,
+            description,
+            price,
+            status,
+            deadline,
+            notes,
+            id
+        ]
+    )
+
+    if (result.rows.length === 0) {
+        return res.status(404).json({
+            message: 'Orçamento não encontrado'
+        })
+    }
+
+    return res.json(result.rows[0])
+}
