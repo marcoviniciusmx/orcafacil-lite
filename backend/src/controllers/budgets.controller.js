@@ -71,7 +71,7 @@ export async function createBudgets(req, res) {
     return res.status(201).json(result.rows[0])
 }
 
-export async function updateBadgets(req, res) {
+export async function updateBudgets(req, res) {
     const { id } = req.params
 
     const {
@@ -124,4 +124,24 @@ export async function updateBadgets(req, res) {
     }
 
     return res.json(result.rows[0])
+}
+
+export async function deleteBudgets(req, res) {
+    const { id } = req.params
+
+    const result = await pool.query(
+        'DELETE FROM budgets WHERE id = $1 RETURNING *',
+        [id]
+    )
+
+    if(result.rows.length === 0) {
+        return res.status(404).json({
+            message: 'Budget não encontrado'
+        })
+    }
+
+    return res.json({
+        message: 'Budget deletado com sucesso',
+        budget: result.rows[0]
+    })
 }

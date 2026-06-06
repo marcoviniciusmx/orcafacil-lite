@@ -1,10 +1,11 @@
 import { Router } from 'express'
-import { getBudgets, createBudgets, updateBadgets } from '../controllers/budgets.controller.js'
+import { getBudgets, createBudgets, updateBudgets, deleteBudgets } from '../controllers/budgets.controller.js'
 
 const router = Router()
 
 router.get('/', getBudgets)
 router.post('/', createBudgets)
-router.patch('/:id', updateBadgets)
+router.patch('/:id', updateBudgets)
+router.delete('/:id', deleteBudgets)
 
 export default router
