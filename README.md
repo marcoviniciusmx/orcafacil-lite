@@ -371,4 +371,4 @@ Melhorias planejadas para as próximas versões:
 
 Desenvolvido por Marco Vinícius Menezes Xavier.
 
-[LinkedIn](https://www.linkedin.com/in/seu-linkedin) | [GitHub](https://github.com/seu-usuario)
+[LinkedIn](https://www.linkedin.com/in/marcoviniciusmx) | [GitHub](https://github.com/marcoviniciusmx)
